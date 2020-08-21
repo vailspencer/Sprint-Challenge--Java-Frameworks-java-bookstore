@@ -58,16 +58,16 @@ public class ResourceServerConfig
                              "/oauth/revoke-token",
                              "/logout")
                 .authenticated()
-                .antMatchers("/roles/**")
-                .hasAnyRole("ADMIN", "DATA")
-                .antMatchers(HttpMethod.GET,"/books/books")
+                .antMatchers("/roles/**",
+                        "/books/books",
+                        "/books/book/**")
                 .hasAnyRole("ADMIN", "DATA")
                 .antMatchers(HttpMethod.POST, "/books/book")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/books/book")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/books/book")
-                .hasAnyRole("ADMIN")
+                .hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/books/book/**")
+                .hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/books/book/**")
+                .hasRole("ADMIN")
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());

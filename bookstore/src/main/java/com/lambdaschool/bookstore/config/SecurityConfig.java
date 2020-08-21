@@ -24,8 +24,7 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 // This allows us to further restrict access to an endpoint inside of a controller.
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig
-        extends WebSecurityConfigurerAdapter
+public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     /**
      * Allows us to customize the Authentication Manager. Normally, as we do here, we just take the defaults.
