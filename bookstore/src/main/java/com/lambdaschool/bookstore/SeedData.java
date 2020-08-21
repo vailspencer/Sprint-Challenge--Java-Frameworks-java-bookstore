@@ -18,9 +18,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
  * <p>
@@ -30,7 +27,7 @@ import java.util.Set;
 @Transactional
 @Component
 public class SeedData
-        implements CommandLineRunner
+    implements CommandLineRunner
 {
     /**
      * Connects the Role Service to this process
@@ -65,7 +62,7 @@ public class SeedData
     @Transactional
     @Override
     public void run(String[] args) throws
-            Exception
+                                   Exception
     {
         userService.deleteAll();
         roleService.deleteAll();
@@ -82,60 +79,66 @@ public class SeedData
         r3 = roleService.save(r3);
 
         // admin, data, user
-        User u1 = new User("admin",
-                           "password",
-                           "admin@lambdaschool.local");
+        User u1 = new User("test admin",
+            "password",
+            "admin@lambdaschool.local");
         u1.getRoles()
-                .add(new UserRoles(u1, r1));
+            .add(new UserRoles(u1, r1));
+        u1.getRoles()
+            .add(new UserRoles(u1, r2));
+        u1.getRoles()
+            .add(new UserRoles(u1, r3));
         u1.getUseremails()
-                .add(new Useremail(u1,
-                                   "admin@email.local"));
+            .add(new Useremail(u1,
+                "admin@email.local"));
         u1.getUseremails()
-                .add(new Useremail(u1,
-                                   "admin@mymail.local"));
+            .add(new Useremail(u1,
+                "admin@mymail.local"));
 
         userService.save(u1);
 
         // data, user
-        User u2 = new User("cinnamon",
-                           "1234567",
-                           "cinnamon@lambdaschool.local");
+        User u2 = new User("test cinnamon",
+            "1234567",
+            "cinnamon@lambdaschool.local");
         u2.getRoles()
-                .add(new UserRoles(u2, r3));
+            .add(new UserRoles(u2, r2));
+        u2.getRoles()
+            .add(new UserRoles(u2, r3));
         u2.getUseremails()
-                .add(new Useremail(u2,
-                                   "cinnamon@mymail.local"));
+            .add(new Useremail(u2,
+                "cinnamon@mymail.local"));
         u2.getUseremails()
-                .add(new Useremail(u2,
-                                   "hops@mymail.local"));
+            .add(new Useremail(u2,
+                "hops@mymail.local"));
         u2.getUseremails()
-                .add(new Useremail(u2,
-                                   "bunny@email.local"));
+            .add(new Useremail(u2,
+                "bunny@email.local"));
         userService.save(u2);
 
         // user
-        User u3 = new User("barnbarn",
-                           "ILuvM4th!",
-                           "barnbarn@lambdaschool.local");
+        User u3 = new User("test barnbarn",
+            "ILuvM4th!",
+            "barnbarn@lambdaschool.local");
         u3.getRoles()
-                .add(new UserRoles(u3, r2));
+            .add(new UserRoles(u3, r2));
         u3.getUseremails()
-                .add(new Useremail(u3,
-                                   "barnbarn@email.local"));
+            .add(new Useremail(u3,
+                "barnbarn@email.local"));
         userService.save(u3);
 
-        User u4 = new User("puttat",
-                           "password",
-                           "puttat@school.lambda");
+        User u4 = new User("test puttat",
+            "password",
+            "puttat@school.lambda");
         u4.getRoles()
-                .add(new UserRoles(u4, r2));
+            .add(new UserRoles(u4, r2));
         userService.save(u4);
 
-        User u5 = new User("misskitty",
-                           "password",
-                           "misskitty@school.lambda");
+        User u5 = new User("test misskitty",
+            "password",
+            "misskitty@school.lambda");
         u5.getRoles()
-                .add(new UserRoles(u5, r2));
+            .add(new UserRoles(u5, r2));
         userService.save(u5);
 
         /************
@@ -168,35 +171,55 @@ public class SeedData
         s4 = sectionService.save(s4);
         s5 = sectionService.save(s5);
 
-        Set<Wrote> wrote = new HashSet<>();
-        wrote.add(new Wrote(a6, new Book()));
         Book b1 = new Book("Flatterland", "9780738206752", 2001, s1);
-        b1.setWrotes(wrote);
+        b1.getWrotes()
+            .add(new Wrote(a6, new Book()));
         b1 = bookService.save(b1);
 
-        wrote = new HashSet<>();
-        wrote.add(new Wrote(a2, new Book()));
         Book b2 = new Book("Digital Fortess", "9788489367012", 2007, s1);
-        b2.setWrotes(wrote);
+        b2.getWrotes()
+            .add(new Wrote(a2, new Book()));
         b2 = bookService.save(b2);
 
-        wrote = new HashSet<>();
-        wrote.add(new Wrote(a2, new Book()));
         Book b3 = new Book("The Da Vinci Code", "9780307474278", 2009, s1);
-        b3.setWrotes(wrote);
+        b3.getWrotes()
+            .add(new Wrote(a2, new Book()));
         b3 = bookService.save(b3);
 
-        wrote = new HashSet<>();
-        wrote.add(new Wrote(a5, new Book()));
-        wrote.add(new Wrote(a3, new Book()));
         Book b4 = new Book("Essentials of Finance", "1314241651234", 0, s4);
-        b4.setWrotes(wrote);
+        b4.getWrotes()
+            .add(new Wrote(a3, new Book()));
+        b4.getWrotes()
+            .add(new Wrote(a5, new Book()));
         b4 = bookService.save(b4);
 
-        wrote = new HashSet<>();
-        wrote.add(new Wrote(a4, new Book()));
         Book b5 = new Book("Calling Texas Home", "1885171382134", 2000, s3);
-        b5.setWrotes(wrote);
+        b5.getWrotes()
+            .add(new Wrote(a4, new Book()));
         b5 = bookService.save(b5);
+
+        //        System.out.println("***** BOOK IDs *****");
+        //        System.out.println(b1.getTitle() + " " + b1.getBookid());
+        //        System.out.println(b2.getTitle() + " " + b2.getBookid());
+        //        System.out.println(b3.getTitle() + " " + b3.getBookid());
+        //        System.out.println(b4.getTitle() + " " + b4.getBookid());
+        //        System.out.println(b5.getTitle() + " " + b5.getBookid());
+        //
+        //        System.out.println();
+        //        System.out.println("***** Section Ids *****");
+        //        System.out.println(s1.getName() + " " + s1.getSectionid());
+        //        System.out.println(s2.getName() + " " + s2.getSectionid());
+        //        System.out.println(s3.getName() + " " + s3.getSectionid());
+        //        System.out.println(s4.getName() + " " + s4.getSectionid());
+        //        System.out.println(s5.getName() + " " + s5.getSectionid());
+        //
+        //        System.out.println();
+        //        System.out.println("***** Author Ids *****");
+        //        System.out.println(a1.getFname() + " " + a1.getLname() + " " + a1.getAuthorid());
+        //        System.out.println(a2.getFname() + " " + a2.getLname() + " " + a2.getAuthorid());
+        //        System.out.println(a3.getFname() + " " + a3.getLname() + " " + a3.getAuthorid());
+        //        System.out.println(a4.getFname() + " " + a4.getLname() + " " + a4.getAuthorid());
+        //        System.out.println(a5.getFname() + " " + a5.getLname() + " " + a5.getAuthorid());
+        //        System.out.println(a6.getFname() + " " + a6.getLname() + " " + a6.getAuthorid());
     }
 }
